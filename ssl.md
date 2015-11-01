@@ -1,6 +1,13 @@
 
 # SSL
 
+## Recommended ciphers
+
+- EECDH+AESGCM
+- EDH+AESGCM
+- AES256+EECDH
+- AES256+EDH
+
 ## Protocols
 
 ### SSLv1
@@ -18,7 +25,7 @@ Based on SSLv1, fixed some security issues. Still vulnerable.
 
 Complete rewrite and redesign of the SSL protocol.
 
-Vulnerable to _POODLE_ - allows MITM decryption of all intercepted traffic using a _padding oracle attack_.
+Vulnerable to _POODLE_ - see vuln section.
 
 Officially deprecated in *June 2015*.
 
@@ -41,3 +48,24 @@ Certificate format changed to PKCS1, allows existing sessions to be re-used if a
 Changed to *TLS_RSA_WITH_AES_128_CBC_SHA* by default, which *was* more secure, at the time. (It has now been deprecated)
 
 Lots of other little changes.
+
+## Vulnerabilities
+
+### POODLE
+
+POODLE allows MITM decryption of all intercepted traffic using a _padding oracle attack_.
+
+Basically by bruteforcing, you can decrypt connection data byte-by-byte. You need an average of _256_ HTTP requests per byte.
+
+### BEAST
+
+Allows decryption by manipulating and comparing 2 different encryption streams. No practical exploits have been released.
+
+## Logjam
+
+Is a downgrade attack that forces connections back to using (easily exploitable) 512 bit diffie-hellman groups.
+
+## Heartbleed
+
+Not a protocol vulnerability, but an implementation one. OpenSSL was vulnerable to leaking memory of the host system.
+Allowed compromisation of private keys and other sensitive data. Required re-issue of majority of SSL certificates on the internet
