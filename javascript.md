@@ -9,6 +9,7 @@
 * Use `Array.isArray(x)` over `x instanceOf Array` where possible
 * Use `parse{Int, Float}(x)` instead of `+x`
 * Use `x.toString()` instead of `String(x)`
+* Use `= []` instead of `new Array()` so you're not invoking a constructor unnecessarily 
 * Check that constructor is called with new, else return new instance
 ```js
 function X() {
